@@ -21,11 +21,9 @@ func TestNew(t *testing.T) {
 	logger.Print("hello")
 
 	os.Stdout = stdout
-	defer func() {
-		if err := w.Close(); err != nil {
-			t.Errorf("failed to close writer: %s", err.Error())
-		}
-	}()
+	if err := w.Close(); err != nil {
+		t.Errorf("failed to close writer: %s", err.Error())
+	}
 
 	var buf bytes.Buffer
 	if _, err := io.Copy(&buf, r); err != nil {
